@@ -1,30 +1,41 @@
-import React from "react";
-import "../styles/App.css";
 
-const App = () => {
-  const [value, setValue] = React.useState("");
+
+import React, { useState, useEffect } from 'react';
+
+const MarkdownApp = () => {
+  const [markdown, setMarkdown] = useState('');
+  const [html, setHtml] = useState('');
+
+  useEffect(() => {
+    // Convert markdown to HTML
+    const convertMarkdownToHtml = () => {
+      // Implement your own markdown to HTML conversion logic here
+      // For simplicity, let's just replace line breaks with <br> tags
+      return markdown.split('\n').map((line, index) => <div key={index}>{line}<br /></div>);
+    };
+
+    // Call the conversion function and update the HTML state
+    setHtml(convertMarkdownToHtml());
+  }, [markdown]);
 
   return (
-    <section className="app">
-      <div className="textarea">
-        <textarea
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          className="textarea"
-          name=""
-          id=""
-        />
-      </div>
-      <div className="preview">
-        <h1>
-          {/* {strArr} */}
-          <strong> <strong>{value}</strong></strong>
-        </h1>
-       
-        {value.length === 0 && <p className="loading">loading...</p>}
-      </div>
-    </section>
+    <div className="app">
+      <textarea
+        className="textarea"
+        value={markdown}
+        onChange={(e) => setMarkdown(e.target.value)}
+        placeholder="Write your markdown here..."
+      />
+      <div className="preview"> <h1>Heading</h1>
+        <br></br>
+        <br></br>
+        <span>
+          This is some <strong>bold</strong> text.
+        </span>
+{html}</div>
+   
+    </div>
   );
 };
 
-export default App;
+export default MarkdownApp;
